@@ -15,18 +15,23 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
     currfolder = folder;
-    let a = await fetch(`./Asset/${folder}/`);
-    let responce = await a.text();
-    let div = document.createElement("div");
-    div.innerHTML = responce;
-    let as = div.getElementsByTagName("a");
-    songs.length = 0;
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`/${folder}/`)[1])
-        }
-    }
+    let res = await fetch(`./Asset/${folder}/playlist.json`);
+    let data = await res.json();
+
+    songs = data.songs;
+    
+    // let a = await fetch(`./Asset/${folder}/`);
+    // let responce = await a.text();
+    // let div = document.createElement("div");
+    // div.innerHTML = responce;
+    // let as = div.getElementsByTagName("a");
+    // songs.length = 0;
+    // for (let index = 0; index < as.length; index++) {
+    //     const element = as[index];
+    //     if (element.href.endsWith(".mp3")) {
+    //         songs.push(element.href.split(`/${folder}/`)[1])
+    //     }
+    // }
 
     let songUL = document.querySelector(".Trendingcards");
     songUL.innerHTML = "";
