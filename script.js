@@ -299,9 +299,9 @@ const playMusic = (track, paused = false) => {
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
 
-// ✅ Display all albums (reads subfolder playlist.json files)
+// ✅ Display all albums (manually listed)
 async function displayAlbums() {
-    let albums = ["TrendingSongs"]; // manually list album folders
+    let albums = ["TrendingSongs", "PunjabiSongs", "Religious"];
 
     let authorcards = document.querySelector(".authorcards");
     authorcards.innerHTML = "";
@@ -324,14 +324,17 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("authorcard")).forEach(e => {
         e.addEventListener("click", async item => {
             await getSongs(item.currentTarget.dataset.folder);
+            if (songs.length > 0) playMusic(songs[0], true);
         });
     });
 }
 
 async function main() {
+    // Load default album
     await getSongs("songs/TrendingSongs");
     if (songs.length > 0) playMusic(songs[0], true);
 
+    // Show all albums
     displayAlbums();
 
     // Play/pause button
