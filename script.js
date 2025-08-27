@@ -15,7 +15,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
     currfolder = folder;
-    let a = await fetch(`/SpotifyClone/Asset/${folder}/`);
+    let a = await fetch(`./Asset/${folder}/`);
     let responce = await a.text();
     let div = document.createElement("div");
     div.innerHTML = responce;
@@ -89,7 +89,7 @@ async function getSongs(folder) {
 
 const playMusic = (track, paused = false) => {
     // let audio = new Audio("/SpotifyClone/Asset/songs/"+track);
-    currentSong.src = (`/SpotifyClone/Asset/${currfolder}/` + track);
+    currentSong.src = (`./Asset/${currfolder}/` + track);
     currentSong.load();
     currentSong.onloadedmetadata = () => {
         document.querySelector(".songtime").innerHTML =
@@ -107,7 +107,7 @@ const playMusic = (track, paused = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`/SpotifyClone/Asset/songs/`);
+    let a = await fetch(`./Asset/${folder}/`);
     let responce = await a.text();
     let div = document.createElement("div");
     div.innerHTML = responce;
@@ -119,7 +119,7 @@ async function displayAlbums() {
         if (e.href.includes("/songs")) {
             let folder = e.href.split("/").slice(-2)[0];
             //get metadata from folder
-            let a = await fetch(`/SpotifyClone/Asset/songs/${folder}/info.json`);
+            let a = await fetch(`./Asset/songs/${folder}/info.json`);
             let responce = await a.json();
             console.log(responce);
             authorcards.innerHTML = authorcards.innerHTML + ` <div data-folder="${folder}" class="authorcard">
